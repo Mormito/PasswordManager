@@ -12,4 +12,4 @@ def pause():
     if(platform.system() == "Windows"):
         os.system('pause')
     else:
-        os.system('sleep 6')
+        os.system('sleep 4')

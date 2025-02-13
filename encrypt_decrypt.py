@@ -3,12 +3,13 @@ from generate import *
 from utils import *
 path = None
 filename = None
+newpassword = "failed for some reason"
 
 def definePath():
     clear()
     global path
 
-    print("Set the path")
+    print("Set the path [add / or \ at the end of path]")
     path = input(">> ").strip()
 
     print(path)
@@ -35,7 +36,7 @@ def reader():
 def writer():
     print("file name is: " + filename)
     fw = open(path + filename + ".txt", "a")
-    fw.write("newpassword" + "\n")
+    fw.write(newpassword)
 
 
 def encrypt():
@@ -75,7 +76,6 @@ def encrypt():
 
         # token = f.encrypt(path + filename)
         token = fernetKey.encrypt(content_bytes)
-        print(token)
 
         token_str = token.decode()
 
@@ -90,19 +90,18 @@ def encrypt():
         key_str = key.decode()
         fernetKey = Fernet(key)
 
-        # filereader
+        # password filereader
         with open(path + filename + ".txt", "r") as freader:
             content = freader.read()
             content_bytes = content.encode()
 
         # encrypt the content (passwords) and writes in a txt
         token = fernetKey.encrypt(content_bytes)
-        print(token)
 
         token_str = token.decode()
 
-        fw = open(path + filename + ".txt", "a")
-        fw.write(token_str + "\n")
+        fw = open(path + filename + ".txt", "w")
+        fw.write(token_str)
 
         clear()
         warning()
@@ -116,7 +115,39 @@ def encrypt():
 
 
 def decrypt():
-    print()
+    clear()
+
+    print("Set the key path!")
+
+    pause()
+
+    definePath()
+    defineFilename()
+
+    fr = open(path + filename + ".txt", "r")
+    key = fr.read()
+    key_bytes = key.encode()
+    fernetKey = Fernet(key)
+
+    print("Set the file path!")
+    pause()
+
+    definePath()
+    defineFilename()
+
+    fr = open(path + filename + ".txt", "r")
+    token = fr.read()
+    token_bytes = token.encode()
+
+    content_bytes = fernetKey.decrypt(token_bytes)
+    content = content_bytes.decode()
+    clear()
+    print("Password of " + filename + ": " + content)
+    
+    
+
+
+    
 
 
 def clear():
@@ -126,6 +157,8 @@ def clear():
         os.system('clear')
 
 def password_system(): 
+        global newpassword
+
         clear()
         newpassword = generatepasswd()
         print("Password: " + newpassword)
@@ -144,10 +177,6 @@ def password_system():
             defineFilename()
             writer()
             encrypt()
-
-            #decrypt the file  
-            #add the password
-            #encrypt
         else:
             password_system()
 
