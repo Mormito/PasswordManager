@@ -9,7 +9,7 @@ def definePath():
     global path
 
     print("Set the path")
-    path = input(">> ").strip() + "\\"
+    path = input(">> ").strip()
 
     print(path)
 
@@ -47,39 +47,7 @@ def encrypt():
 
     haveakey = int(input(">> " ))
 
-    if haveakey != 1:
-        clear()
-
-        # here generate the key, and i created a var for key string, because a FW needs a string argument.
-        key = Fernet.generate_key()
-        key_str = key.decode()
-        fernetKey = Fernet(key)
-
-        # filereader
-        with open(path + filename + ".txt", "r") as freader:
-            content = freader.read()
-            content_bytes = content.encode()
-
-        # encrypt the content (passwords) and writes in a txt
-        token = fernetKey.encrypt(content_bytes)
-        print(token)
-
-        token_str = token.decode()
-
-        fw = open(path + filename + ".txt", "a")
-        fw.write(token_str + "\n")
-
-        clear()
-        warning()
-        pause()
-
-        # key filewriter
-        definePath()
-        defineFilename()
-        fw = open(path + filename + ".txt", "w")
-        fw.write(key_str)
-
-    else:     
+    if haveakey == 1:
         # ask to set path and filename for extract the key
         warning()
         pause()
@@ -114,6 +82,38 @@ def encrypt():
         f = open(path + filename + ".txt", "w")
         f.write(token_str)
 
+    else:     
+        clear()
+
+        # here generate the key, and i created a var for key string, because a FW needs a string argument.
+        key = Fernet.generate_key()
+        key_str = key.decode()
+        fernetKey = Fernet(key)
+
+        # filereader
+        with open(path + filename + ".txt", "r") as freader:
+            content = freader.read()
+            content_bytes = content.encode()
+
+        # encrypt the content (passwords) and writes in a txt
+        token = fernetKey.encrypt(content_bytes)
+        print(token)
+
+        token_str = token.decode()
+
+        fw = open(path + filename + ".txt", "a")
+        fw.write(token_str + "\n")
+
+        clear()
+        warning()
+        pause()
+
+        # key filewriter
+        definePath()
+        defineFilename()
+        fw = open(path + filename + ".txt", "w")
+        fw.write(key_str)
+
 
 def decrypt():
     print()
@@ -145,7 +145,6 @@ def password_system():
             writer()
             encrypt()
 
-            #Create a save system | with encrypting
             #decrypt the file  
             #add the password
             #encrypt
