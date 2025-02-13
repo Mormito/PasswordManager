@@ -1,9 +1,6 @@
-import os
-import platform
-
 from cryptography.fernet import Fernet
 from generate import *
-
+from utils import *
 path = None
 filename = None
 
@@ -75,6 +72,7 @@ def encrypt():
         clear()
         warning()
         pause()
+
         # key filewriter
         definePath()
         defineFilename()
@@ -94,11 +92,14 @@ def encrypt():
         key_bytes = key.encode()
         fernetKey = Fernet(key_bytes)
 
+        #set password path and filename
         clear()
         print("Now you need to set the path and name of your passwords file")
 
         definePath()
         defineFilename()
+
+        #read the encrypted password
 
         with open(path + filename + ".txt", "r") as freader:
             content = freader.read()
@@ -151,15 +152,5 @@ def password_system():
         else:
             password_system()
 
-def warning():
-    i = 0
-    while i <= 5:
-        print("WARNING! Now you need to set a path for your key, if you lost the key you will lost the password!!!")
-        i+=1
+# utils
 
-
-def pause():
-    if(platform.system() == "Windows"):
-        os.system('pause')
-    else:
-        os.system('sleep 6')
