@@ -1,0 +1,18 @@
+- interface:
+
+- gerar senha V>> armazenar V>> criptografar V
+- ler senhas V>> informar caminho e nome do arquivo V>> informar chave
+>se correta descriptografa certo
+>se errada descriptografa errado
+
+
+
+
+
+1 - gerar senha V
+
+2 - leitor e escritor V
+
+3 - gerador de chave V
+>armazenamento de chave V
+>> criptografador V e descriptografador 
