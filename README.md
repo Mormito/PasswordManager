@@ -1,6 +1,8 @@
 ## Python Password Manager 
 
-This code is currently simple, it can generate and encrypt a random 10 char password (obviously can decrypt too...), but im working to upgrade this.
+This code can generate and encrypt a random 10 char password (can decrypt too).
+
+Working to upgrade!
 
 ### Install guide 
 
